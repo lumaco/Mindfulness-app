@@ -2,7 +2,8 @@
   "expo": {
     "name": "mindfulness-app",
     "slug": "mindfulness-app",
-    "version": "1.0.0",
+    "entryPoint": "./index.ts",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,13 +18,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.lumaco.mindfulnessapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "31ff1147-e353-403f-9800-716b4893d9df"
+      }
     }
   }
 }

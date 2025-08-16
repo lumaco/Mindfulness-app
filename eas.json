@@ -1,0 +1,18 @@
+{
+  "cli": { "version": ">= 9.0.0" },
+  "build": {
+    "preview-apk": {
+      "android": { "buildType": "apk" },
+      "developmentClient": false
+    },
+    "production": {
+      "android": { "gradleCommand": ":app:bundleRelease" }
+    },
+    "dev": {
+      "developmentClient": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
