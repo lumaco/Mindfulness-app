@@ -1,27 +1,36 @@
-name: EAS Build
+name: EAS Android APK
 
 on:
-  workflow_dispatch:   # avvio manuale
   push:
-    branches:
-      - main           # ogni push su main → build
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-android-apk:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: npm i -g eas-cli
 
-      - name: Login to EAS
-        run: eas whoami || eas login --token ${{ secrets.EXPO_TOKEN }}
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
 
+      # NIENTE "eas login" qui: il token viene letto da EXPO_TOKEN
       - name: Build APK
-        run: eas build --platform android --profile preview --non-interactive
+        run: eas build --platform android --profile preview-apk --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
